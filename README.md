@@ -24,8 +24,7 @@ Shifting Symmetry is a web project that showcases a dynamically shifting backgro
 
 ## Demo
 
-Check out the live demo here: [Shifting Symmetry Live Demo](link-to-live-demo) *(Add a link to your live demo if available)*
-
+Check out the live demo here: [Shifting Symmetry Live Demo](https://tensor35.github.io/shifting-symmetry/)
 ## Installation
 
 To run this project locally, follow these steps:
