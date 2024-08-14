@@ -1,115 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <title>Shifting Symmetry</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      body,
-      html {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        font-family: "Roboto", sans-serif;
-      }
+        body,
+        html {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: "Roboto", sans-serif;
+        }
 
-      .background-container {
-        width: 100%;
-        height: 100%;
-        background-image: url("pattern.png");
-        background-repeat: repeat;
-        background-size: 300px;
-        background-position: 0px 0px;
-        filter: blur(0.2rem); /* Blur effect on background */
-        transition: background-position 1s ease-in-out;
-      }
+        .background-container {
+            width: 100%;
+            height: 100%;
+            background-image: url("pattern.png");
+            background-repeat: repeat;
+            background-size: 300px;
+            background-position: 0px 0px;
+            filter: blur(0.2rem); /* Blur effect on background */
+            transition: background-position 1s ease-in-out;
+        }
 
-      .consent-popup {
-        width: 300px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        /* From https://css.glass */
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(11.2px);
-        -webkit-backdrop-filter: blur(11.2px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
+        .consent-popup {
+            width: 300px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(11.2px);
+            -webkit-backdrop-filter: blur(11.2px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-      .consent-popup button {
-        background: #375a80;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        border-radius: 10px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(11.2px);
-        -webkit-backdrop-filter: blur(11.2px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        .consent-popup button {
+            background: #375a80;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(11.2px);
+            -webkit-backdrop-filter: blur(11.2px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
-      }
+        .consent-popup button:hover {
+            background: #0056b3;
+        }
 
-      .consent-popup button:hover {
-        background: #0056b3;
-      }
+        /* Floating buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .floating-buttons button {
+            background-color: #007bff;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(11.2px);
+            -webkit-backdrop-filter: blur(11.2px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: black;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .floating-buttons button:hover {
+            background-color: #0056b3;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="background-container" id="backgroundContainer"></div>
 
     <div class="consent-popup" id="consentPopup">
-      <h2>Warning</h2>
-      <p>
-        This website uses a shifting background pattern that may cause illusions
-        and hypnosis. Do you consent to proceed?
-      </p>
-      <button onclick="giveConsent()">I Consent</button>
+        <h2>Warning</h2>
+        <p>This website uses a shifting background pattern that may cause illusions and hypnosis. Do you consent to proceed?</p>
+        <button onclick="giveConsent()">I Consent</button>
+    </div>
+
+    <div class="floating-buttons">
+        <button onclick="refreshPage()">&#x21bb;</button> <!-- Refresh icon -->
+        <button onclick="window.location.href='https://github.com/tensor35/shifting-symmetry.git'">&#x2139;</button> <!-- Info icon -->
     </div>
 
     <script>
-      const backgroundContainer = document.getElementById(
-        "backgroundContainer"
-      );
-      let x = 0;
-      let y = 0;
+        const element = document.documentElement;
 
-      function getRandomOffset(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
 
-      function shiftBackground() {
-        const x_offset = getRandomOffset(-200, 200);
-        const y_offset = getRandomOffset(-200, 200);
+        const backgroundContainer = document.getElementById("backgroundContainer");
+        let x = 0;
+        let y = 0;
 
-        x += x_offset;
-        y += y_offset;
+        function getRandomOffset(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
 
-        backgroundContainer.style.backgroundPosition = `${x}px ${y}px`;
-        backgroundContainer.style.transition =
-          "background-position 1s ease-in-out";
-      }
+        function shiftBackground() {
+            const x_offset = getRandomOffset(-200, 200);
+            const y_offset = getRandomOffset(-200, 200);
 
-      function giveConsent() {
-        document.getElementById("consentPopup").style.display = "none";
-        backgroundContainer.style.filter = "none"; // Remove the blur from the background
-        setInterval(shiftBackground, 1000);
-      }
+            x += x_offset;
+            y += y_offset;
+
+            backgroundContainer.style.backgroundPosition = `${x}px ${y}px`;
+            backgroundContainer.style.transition = "background-position 1s ease-in-out";
+        }
+
+        function giveConsent() {
+            document.getElementById("consentPopup").style.display = "none";
+            backgroundContainer.style.filter = "none";
+            setInterval(shiftBackground, 1000);
+        }
+
+        function refreshPage() {
+            location.reload();
+        }
     </script>
-  </body>
+</body>
 </html>
