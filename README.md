@@ -1,3 +1,4 @@
+<img src="./header.gif">
 # Shifting Symmetry
 
 Shifting Symmetry is a web project that showcases a dynamically shifting background pattern designed to create a hypnotic visual experience. The background, composed of symmetrical, diamond-shaped repeating lines, moves randomly across the screen, providing an engaging and visually stimulating effect.
